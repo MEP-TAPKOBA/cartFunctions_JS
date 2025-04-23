@@ -30,3 +30,21 @@ function addToCart(sellectCart, product) {
     console.log(`Новый товар ${findUnit.name} стоимостью в ${findUnit.price}$ добавлен в корзину. Их теперь ${findUnit.quantity} шт.`)
     return sellectCart
 }
+function removeFromCart(sellectCart, product) {
+    if (!Array.isArray(sellectCart)) {
+        console.log('Неправильный формат данных описания корзины')
+        return false
+    }
+    const productUnit = products.find(unit => unit.id == product) // ищем свойства продукта по ID
+    const findUnit = sellectCart.find(unit => unit.id == product) //ищем в корзине есть данный продукт
+    if ((typeof findUnit) == 'undefined') {
+        console.log(`Товара ${productUnit.name} нет в корзине, что бы удалить`) 
+        return sellectCart 
+    }
+    const findUnitIndex = sellectCart.findIndex(prod => prod.id === product)
+    if (findUnitIndex !== -1){
+        sellectCart.splice(findUnitIndex, 1)
+        console.log(`Товар ${findUnit.name} весь удален из корзины`)
+        return sellectCart
+    }
+}
