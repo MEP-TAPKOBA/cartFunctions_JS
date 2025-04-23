@@ -16,8 +16,8 @@ function addToCart(sellectCart, product) {
         console.log('Неправильный формат данных описания корзины')
         return false
     }
-    const productUnit = products.find(unit => unit.id == product) // ищем свойства продукта по ID
-    const findUnit = sellectCart.find(unit => unit.id == product) //ищем в корзине есть данный продукт
+    let productUnit = products.find(unit => unit.id == product) // ищем свойства продукта по ID
+    let findUnit = sellectCart.find(unit => unit.id == product) //ищем в корзине есть данный продукт
     if ((typeof findUnit) !== 'undefined') { // Если он есть - добавляем его в корзину.
         findUnit = sellectCart.find(unit => unit.id == product)
         findUnit.quantity = findUnit.quantity + 1
@@ -36,7 +36,7 @@ function removeFromCart(sellectCart, product) {
         return false
     }
     const productUnit = products.find(unit => unit.id == product) // ищем свойства продукта по ID
-    const findUnit = sellectCart.find(unit => unit.id == product) //ищем в корзине есть данный продукт
+    let findUnit = sellectCart.find(unit => unit.id == product) //ищем в корзине есть данный продукт
     if ((typeof findUnit) == 'undefined') {
         console.log(`Товара ${productUnit.name} нет в корзине, что бы удалить`)
         return sellectCart
@@ -69,4 +69,22 @@ function changeQuantity(sellectCart, product, newQuantity) {
     }
     findUnit.quantity = newQuantity
     console.log(`Теперь продукта ${productUnit.name} в корзине ${findUnit.quantity} шт., общая стоимость товаров ${(findUnit.quantity * findUnit.price).toFixed(2)}$. `)
+    return sellectCart
 }
+function calculateTotal(sellectCart) {
+    let totalpay = 0
+    console.log(`В корзине лежит:`)
+    sellectCart.forEach(element => {
+        totalpay += element.price * element.quantity
+        console.log(`   Товар ${element.name} стоимостью ${element.price}$ в количестве ${element.quantity} шт. Сумма: ${(element.price * element.quantity).toFixed(2)}$ `)
+    })
+    console.log(`Итоговая сумма: ${totalpay.toFixed(2)}$`)
+    return sellectCart
+}
+function clearCart(sellectCart) {
+    sellectCart.splice(0, sellectCart.length)
+    console.log(`Корзина очищена`)
+    return sellectCart
+}
+
+
