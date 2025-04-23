@@ -1,0 +1,5 @@
+[
+    { "id" : 1, "name" : "Шампунь", "price" : 5.99, "quantity" : 2 },
+    { "id" : 2, "name" : "Мыло", "price" : 1.99, "quantity" : 3 },
+    { "id" : 3, "name" : "Зубная паста", "price" : 2.49, "quantity" : 1 }
+]
