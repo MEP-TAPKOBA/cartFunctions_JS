@@ -1,10 +1,10 @@
 Hello epta!
-This is a small function manual
-Function for adding a product to the cart - addToCart(cart, product.id)
-Function for completely removing one product (e.g. soap) from the cart - removeFromCart(cart, product.id)
-Function for changing the quantity of goods in the cart - changeQuantity(cart, product.id, quantity)
-Function for calculating the total amount of the cart - calculateTotal(cart)
-Function for clearing the cart - clearCart(cart)
+This is a small function manual /n
+Function for adding a product to the cart - addToCart(cart, product.id) /n
+Function for completely removing one product (e.g. soap) from the cart - removeFromCart(cart, product.id)/n
+Function for changing the quantity of goods in the cart - changeQuantity(cart, product.id, quantity) /n
+Function for calculating the total amount of the cart - calculateTotal(cart)/n
+Function for clearing the cart - clearCart(cart)/n
 The function ‘alarm’ serves for the operability of other functions as a fuse, in case of incorrect ‘cart’.
 ------------------------------------------------------------------------------------------------------------
 Здарова епта!
