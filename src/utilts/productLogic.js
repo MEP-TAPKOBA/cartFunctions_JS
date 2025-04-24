@@ -1,4 +1,4 @@
-const products = require('./products.json')
+const products = require('../json/products.json')
 
 function findProductUnit(findProductID) {
     let unit = products.find(prod => prod.id == findProductID)

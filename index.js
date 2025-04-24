@@ -1,6 +1,12 @@
-const products = require('./src/products.json')
-let cart = require('./src/cart.json')
-const utilts = require('./src/utilts')
+const products = require('./src/json/products.json')
+let cart = require('./src/json/cart.json')
+const { 
+    addToCart, 
+    changeQuantity, 
+    removeFromCart, 
+    calculateTotal, 
+    clearCart
+} = require('./src/utilts/utilts')
 
 console.log('Товары в магазине:')
 products.forEach((element, index) => {

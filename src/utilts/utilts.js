@@ -1,4 +1,4 @@
-const products = require('./products.json')
+const products = require('../json/products.json')
 const productLogic = require('./productLogic')
 
 function alarm(arr) {
