@@ -1,4 +1,5 @@
 const products = require('./products.json')
+const productLogic = require('./productLogic')
 
 function alarm(arr) {
     if (!Array.isArray(arr)) {
@@ -8,50 +9,45 @@ function alarm(arr) {
     return true
 }
 function addToCart(sellectCart, product) {
-    if (!alarm(sellectCart)) return
-    let productUnit = products.find(unit => unit.id == product) // ищем свойства продукта по ID
-    let findUnit = sellectCart.find(unit => unit.id == product) //ищем в корзине есть данный продукт
+    if (!alarm(sellectCart)) return sellectCart
+    const productUnit = productLogic.findProductUnit(product) // ищем свойства продукта в списке товаров по ID по ID
+    if (!productUnit) return sellectCart
+    let findUnit = productLogic.findProductInCart(sellectCart, product) //ищем в корзине есть данный продукт
     if (findUnit) { // Если он есть - добавляем одну штучку в корзину.
         findUnit.quantity = findUnit.quantity + 1
         console.log(`Товар ${findUnit.name} стоимостью в ${findUnit.price}$ добавлен в корзину. Их теперь ${findUnit.quantity} шт.`)
         return sellectCart
     }
     sellectCart.push(productUnit)
-    findUnit = sellectCart.find(unit => unit.id == product)
+    findUnit = productLogic.findProductInCart(sellectCart, product)
     findUnit.quantity = 1
     console.log(`Новый товар ${findUnit.name} стоимостью в ${findUnit.price}$ добавлен в корзину. Их теперь ${findUnit.quantity} шт.`)
     return sellectCart
 }
 function removeFromCart(sellectCart, product) {
     if (!alarm(sellectCart)) return
-    const productUnit = products.find(unit => unit.id == product) // ищем свойства продукта по ID
-    let findUnit = sellectCart.find(unit => unit.id == product) //ищем в корзине есть данный продукт
+    const productUnit = productLogic.findProductUnit(product) // ищем свойства продукта по ID
+    if (!productUnit) return sellectCart
+    let findUnit = productLogic.findProductInCart(sellectCart, product) //ищем в корзине есть данный продукт
     if (!findUnit) { // Если его нет - не можем удалить то чего нет
         console.log(`Товара ${productUnit.name} нет в корзине, что бы удалить`)
         return sellectCart
     }
-    const findUnitIndex = sellectCart.findIndex(prod => prod.id === product)
-    if (findUnitIndex !== -1) {
-        sellectCart.splice(findUnitIndex, 1)
-        console.log(`Товар ${findUnit.name} весь удален из корзины`)
-        return sellectCart
-    }
+    productLogic.deleteProduct(sellectCart,product)
+    return sellectCart
 }
 function changeQuantity(sellectCart, product, newQuantity) {
     if (!alarm(sellectCart)) return
-    const productUnit = products.find(unit => unit.id == product) // ищем свойства продукта по ID
-    const findUnit = sellectCart.find(unit => unit.id == product) //ищем в корзине есть данный продукт
+    const productUnit = productLogic.findProductUnit(product) // ищем свойства продукта по ID
+    if (!productUnit) return sellectCart 
+    let findUnit = productLogic.findProductInCart(sellectCart, product) //ищем в корзине есть данный продукт
     if (!findUnit) { // Если его нет - не можем поменять значение
         console.log(`Товара ${productUnit.name} нет в корзине, что бы изменить количество`)
         return sellectCart
     }
     if (newQuantity <= 0) {
-        const findUnitIndex = sellectCart.findIndex(prod => prod.id === product)
-        if (findUnitIndex !== -1) {
-            sellectCart.splice(findUnitIndex, 1)
-            console.log(`Товар ${findUnit.name} весь удален из корзины`)
-            return sellectCart
-        }
+        productLogic.deleteProduct(sellectCart,product)
+        return sellectCart
     }
     findUnit.quantity = newQuantity
     console.log(`Теперь товара ${productUnit.name} в корзине ${findUnit.quantity} шт., общая стоимость товаров ${(findUnit.quantity * findUnit.price).toFixed(2)}$. `)
@@ -71,7 +67,7 @@ function calculateTotal(sellectCart) {
 function clearCart(sellectCart) {
     if (!alarm(sellectCart)) return
     sellectCart.splice(0, sellectCart.length)
-    console.log(`Корзина очищена`)
+    console.log(`Корзина пуста`)
     return sellectCart
 }
 module.exports = { addToCart, removeFromCart, changeQuantity, calculateTotal, clearCart, alarm } // экспортируем функции для использования в других файлах
