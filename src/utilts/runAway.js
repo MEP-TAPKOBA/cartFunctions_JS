@@ -6,6 +6,14 @@ const readline = require('node:readline');
 const { stdin: input, stdout: output } = require('node:process');
 const rl = readline.createInterface({ input, output });
 
+let argsForFunc1 = choiseFunction.find(f => f.id === 1)
+
+const choiseFunction = [
+    {
+        id : 1,
+        func : () => {utilts.addToCart(cart,argsForFunc1.productID)},   
+        productID : 0 }
+]
 const listActions = [
     "1 : Добавить товар в корзину",
     "2 : Изменения количества товара в корзине",
@@ -19,7 +27,7 @@ function autoCall(sellectCart){
     console.log(`Возможные действия:`)
     listActions.forEach(element =>{
         console.log(element)
-    })
+    }) 
     let actionSwitch = switchFunc()
     
     
@@ -42,7 +50,9 @@ function switchFunc() {
         return actionSwitch
     });
 }
-
+function switchArgs(acSw) {
+    
+}
 
 
 
