@@ -1,25 +1,27 @@
-const { Shop } = require('./Shop');
-let cart = require('../json/cart.json');
+
 
 class Cart {
-    constructor(shop) {
-        this.shop = shop; // Внедрение зависимости
+    #shop;
+    #cart;
+    constructor(shop,cart) {
+        this.#shop = shop;
+        this.#cart = cart // Внедрение зависимости
     }
 
     show() {
-        if (cart.length == 0){
+        if (this.#cart.length == 0){
             console.log(`Корзина пуста\n`)
             return
         }
         console.log(`Товары в корзине: \n`);
-        cart.forEach(unit => {
+        this.#cart.forEach(unit => {
             console.log(`№${unit.id}: ${unit.name} стоимостью ${unit.price} за штуку в количестве ${unit.quantity}`);
         });
         console.log('\n')
     }
 
     find(id) {
-        const search = cart.find(unit => unit.id == id);
+        const search = this.#cart.find(unit => unit.id == id);
         if (!search) {
             console.log(`Данного товара нет в корзине`);
             return false;
@@ -28,11 +30,11 @@ class Cart {
     }
 
     addTo(id) {
-        const addedUnit = this.shop.find(id);
+        const addedUnit = this.#shop.find(id);
         if (!addedUnit) return
         let findInCart = this.find(id);
         if (!findInCart) {
-            cart.push({ ...addedUnit, quantity: 1 });
+            this.#cart.push({ ...addedUnit, quantity: 1 });
             console.log(`Товар добавлен в корзину: ${addedUnit.name}`);
             return
         }
@@ -42,7 +44,7 @@ class Cart {
         
     }
     changeQuantity(id, value) {
-        const addedUnit = this.shop.find(id)
+        const addedUnit = this.#shop.find(id)
         if (!addedUnit) return
         let findInCart = this.find(id)
         if(!findInCart){
@@ -60,11 +62,11 @@ class Cart {
             return
         }
         console.log(`Товар ${findInCart.name} полностью удален из корзины`)
-        const deleteIndex = cart.findIndex(u => u.id == id)
-        cart.splice(deleteIndex,1)
+        const deleteIndex = this.#cart.findIndex(u => u.id == id)
+        this.#cart.splice(deleteIndex,1)
     }
     clear(){
-        cart = []
+        this.#cart = []
         console.log(`Корзина очищена \n`)
     }
 } 

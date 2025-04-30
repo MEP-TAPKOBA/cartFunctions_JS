@@ -3,7 +3,7 @@ const { Cart } = require('./src/classes/Cart')
 const cart = require('./src/json/cart.json')
 
 let shop1 = new Shop(cart)
-let myCart = new Cart(shop1)
+let myCart = new Cart(shop1,cart)
 
 myCart.show()
 
@@ -16,3 +16,5 @@ myCart.removeFrom(3)
 myCart.show()
 myCart.clear()
 myCart.show()
+
+console.log(myCart.cart)
