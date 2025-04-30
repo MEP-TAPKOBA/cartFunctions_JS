@@ -1,18 +1,18 @@
-const products = require('./src/json/products.json')
-let cart = require('./src/json/cart.json')
-const { 
-    addToCart, 
-    changeQuantity, 
-    removeFromCart, 
-    calculateTotal, 
-    clearCart
-} = require('./src/utilts/utilts')
+const { Shop } = require('./src/classes/Shop')
+const { Cart } = require('./src/classes/Cart')
+const cart = require('./src/json/cart.json')
 
-console.log('Товары в магазине:')
-products.forEach((element, index) => {
-    console.log(`   Товар ${element.name} с порядковым номером ${index} и стоимостью ${element.price}$`)
-})
-console.log('Товары в корзине:')
-cart.forEach((element, index) => {
-    console.log(`   Товар ${element.name} с порядковым номером ${index} и стоимостью ${element.price}$ в количестве ${element.quantity} шт.`)
-})
+let shop1 = new Shop(cart)
+let myCart = new Cart(shop1)
+
+myCart.show()
+
+myCart.addTo(4)
+myCart.addTo(5)
+myCart.show()
+myCart.changeQuantity(4,10)
+myCart.show()
+myCart.removeFrom(3)
+myCart.show()
+myCart.clear()
+myCart.show()
