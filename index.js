@@ -1,8 +1,14 @@
 const { Shop } = require('./src/classes/Shop')
 const { Cart } = require('./src/classes/Cart')
-const cart = require('./src/json/cart.json')
+const { Validate } = require('./src/classes/Validate')
 
-let shop1 = new Shop(cart)
+const cart = require('./src/json/cart.json')
+const products = require('./src/json/products.json')
+
+let validOk = new Validate
+const validProducts = validOk.go(products)
+
+let shop1 = new Shop(cart,validProducts)
 let myCart = new Cart(shop1,cart)
 
 myCart.show()
@@ -18,3 +24,4 @@ myCart.clear()
 myCart.show()
 
 console.log(myCart.cart)
+

@@ -1,5 +1,3 @@
-
-
 class Cart {
     #shop;
     #cart;
